@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عارض روابط API</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="icon" href="logo.png">
+</head>
+
+<body>
+    <main class="app">
+        <section class="workspace" aria-labelledby="pageTitle">
+            <header class="hero">
+                <div>
+                    <p class="eyebrow">لوحة مشغل API</p>
+                    <h1 id="pageTitle">عارض JSON والصور ومشغّل الصوتيات</h1>
+                    <p>ضع رابطًا، وسيتم كشف نوعه تلقائيًا وعرض JSON والصور وشغّل الصوت</p>
+                </div>
+            </header>
+
+            <form class="url-form" id="apiForm">
+                <label for="apiUrl" id="urlLabel">الرابط</label>
+                <div class="input-row">
+                    <input id="apiUrl" name="apiUrl" type="text" inputmode="url" autocomplete="url"
+                        placeholder="https://api.example.com/file.json أو image.png أو audio.mp3" required>
+                    <button type="submit" id="loadBtn">عرض</button>
+                </div>
+                <p class="hint" id="statusText">يدعم JSON والصور والصوت، ويكشف النوع تلقائيًا من الرابط أو من استجابة API.</p>
+            </form>
+
+            <section class="result-panel" id="jsonPanel" aria-label="نتيجة JSON" hidden>
+                <div class="panel-toolbar">
+                    <div>
+                        <h2>النتيجة</h2>
+                        <p id="jsonMeta"></p>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button type="button" class="secondary" id="expandBtn">فك الكل</button>
+                        <button type="button" class="secondary" id="collapseBtn">طي الكل</button>
+                        <button type="button" id="copyBtn">نسخ</button>
+                    </div>
+                </div>
+                <div class="json-viewer" id="jsonViewer" dir="ltr" aria-live="polite"></div>
+            </section>
+
+            <section class="result-panel" id="audioPanel" aria-label="مشغل الصوت" hidden>
+                <audio id="apiAudio" preload="metadata" controls></audio>
+                <div class="control-grid">
+                    <button type="button" class="secondary" id="backwardBtn">-10ث</button>
+                    <button type="button" id="playBtn">تشغيل</button>
+                    <button type="button" class="secondary" id="forwardBtn">+10ث</button>
+                </div>
+                <div class="settings-grid">
+                    <label>
+                        مستوى الصوت
+                        <input id="volumeRange" type="range" min="0" max="1" step="0.05" value="1">
+                    </label>
+                    <label>
+                        السرعة
+                        <select id="speedSelect">
+                            <option value="0.75">0.75x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.25">1.25x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2">2x</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <section class="result-panel" id="imagePanel" aria-label="عارض الصورة" hidden>
+                <div class="image-frame">
+                    <img id="apiImage" alt="الصورة المحملة من الرابط">
+                </div>
+                <div class="settings-grid">
+                    <label>
+                        حجم الصورة
+                        <select id="sizeSelect">
+                            <option value="0.75">صغير</option>
+                            <option value="1" selected>مناسب</option>
+                            <option value="1.25">كبير</option>
+                            <option value="1.5">كبير جدًا</option>
+                        </select>
+                    </label>
+                    <label>
+                        طريقة العرض
+                        <select id="fitSelect">
+                            <option value="contain" selected>احتواء</option>
+                            <option value="cover">ملء الإطار</option>
+                            <option value="fill">تمدد</option>
+                            <option value="none">الحجم الأصلي</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="script/main.js"></script>
+</body>
+
+</html>
